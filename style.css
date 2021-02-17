@@ -1,0 +1,151 @@
+:root {
+  --cell-size: 100px;
+  --mark-size: calc(var(--cell-size) * 0.9);
+}
+
+body {
+  font-size: 16px;
+  font-family: sans-serif;
+  color: rgba(0, 0, 0, 0.7);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background: linear-gradient(#659dbd, #daad86, #8d8741);
+  margin: 0;
+  padding: 0;
+}
+
+.winner-box {
+  position: fixed;
+  min-width: 100vh;
+  min-height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 2;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  display: none;
+}
+.winner-box h2 {
+  margin-bottom: 2rem;
+  background: crimson;
+  padding: 2rem 3rem;
+  border-radius: 4px;
+  box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-weight: 500;
+  font-size: 2rem;
+}
+.reset {
+  background: #fff;
+  padding: 1rem 2rem;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.reset:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+.show {
+  display: flex;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.5);
+}
+
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  background-color: rgba(255, 255, 255, 1);
+  border: 1px solid #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.cell:nth-child(1),
+.cell:nth-child(2),
+.cell:nth-child(3) {
+  border-top: none;
+}
+.cell:nth-child(3),
+.cell:nth-child(6),
+.cell:nth-child(9) {
+  border-right: none;
+}
+.cell:nth-child(1),
+.cell:nth-child(4),
+.cell:nth-child(7) {
+  border-left: none;
+}
+.cell:nth-child(7),
+.cell:nth-child(8),
+.cell:nth-child(9) {
+  border-bottom: none;
+}
+
+.cell.x,
+.cell.o {
+  cursor: not-allowed;
+}
+
+.cell.x::before,
+.cell.x::after,
+.cell.o::before {
+  background: #000;
+}
+
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after,
+.board.o .cell:not(.x):not(.o):hover::before {
+  background-color: #e5e5e5;
+}
+
+.cell.x::before,
+.cell.x::after,
+.board.x .cell:not(.x):not(.o):hover::before,
+.board.x .cell:not(.x):not(.o):hover::after {
+  content: '';
+  position: absolute;
+  width: calc(var(--mark-size) * 0.15);
+  height: var(--mark-size);
+  border-radius: 4px;
+}
+.cell.x::before,
+.board.x .cell:not(.x):not(.o):hover::before {
+  transform: rotate(45deg);
+}
+.cell.x::after,
+.board.x .cell:not(.x):not(.o):hover::after {
+  transform: rotate(-45deg);
+}
+
+.cell.o::before,
+.cell.o::after,
+.board.o .cell:not(.x):not(.o):hover::before,
+.board.o .cell:not(.x):not(.o):hover::after {
+  content: '';
+  border-radius: 50%;
+  position: absolute;
+}
+.cell.o::before,
+.board.o .cell:not(.x):not(.o):hover::before {
+  height: calc(var(--mark-size) * 0.9);
+  width: calc(var(--mark-size) * 0.9);
+}
+.cell.o::after,
+.board.o .cell:not(.x):not(.o):hover::after {
+  background: #fff;
+  width: calc(var(--mark-size) * 0.6);
+  height: calc(var(--mark-size) * 0.6);
+}
